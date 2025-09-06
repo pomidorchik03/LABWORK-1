@@ -23,12 +23,16 @@ jobs:
             sudo apt-get update
             sudo apt-get install libboost-test-dev -y
 
-      - name: Install lib(Windows)
+      - name: Install CMake and Ninja(Windows)
         if: runner.os == 'Windows'
         uses: lukka/get-cmake@latest
 
+      - name: Setup vcpkg(Windows)
+        if: runner.os == 'Windows'
         uses: lukka/run-vcpkg@v11
 
+      - name: Build with CMake(Windows)
+        if: runner.os == 'Windows'
         uses: lukka/run-cmake@v10
 
       # - name: 

@@ -5,8 +5,6 @@ set(PROJECT_VESRION 0.0.${PATCH_VERSION})
 
 project(helloworld VERSION ${PROJECT_VESRION})
 
-cmake_policy(SET CMP0167 NEW)
-
 find_package(boost REQUIRED COMPONENTS unit_test_framework)
 
 configure_file(version.h.in version.h)

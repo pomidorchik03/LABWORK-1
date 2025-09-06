@@ -30,6 +30,8 @@ jobs:
       - name: Setup vcpkg(Windows)
         if: runner.os == 'Windows'
         uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgGitCommitId: '2024.07.12'
 
       - name: Build with CMake(Windows)
         if: runner.os == 'Windows'

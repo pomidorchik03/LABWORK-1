@@ -5,6 +5,7 @@ on:
 
 jobs:
   build: 
+    permissions: write-all
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -18,7 +19,9 @@ jobs:
 
       - name: Install lib(linux)
         if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install libboost-test-dev -y
+        run: | 
+            sudo apt-get update
+            sudo apt-get install libboost-test-dev -y
 
       - name: Install lib(Windows)
         if: runner.os == 'Windows'

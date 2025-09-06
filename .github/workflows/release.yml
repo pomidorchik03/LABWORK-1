@@ -25,11 +25,11 @@ jobs:
 
       - name: Install lib(Windows)
         if: runner.os == 'Windows'
+        uses: lukka/get-cmake@latest
+
         uses: lukka/run-vcpkg@v11
-        with:
-          vcpkgDirectory: '${{ github.workspace }}/vcpkg'
-          vcpkgGitCommitId: '2024.07.12'
-          vcpkgArguments: 'boost-test'
+
+        uses: lukka/run-cmake@v10
 
       # - name: 
 

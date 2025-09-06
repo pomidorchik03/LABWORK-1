@@ -17,33 +17,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Install lib(linux)
-        if: runner.os == 'Linux'
-        run: | 
-            sudo apt-get update
-            sudo apt-get install libboost-test-dev -y
-
-      - name: Install CMake and Ninja(Windows)
-        if: runner.os == 'Windows'
-        uses: lukka/get-cmake@latest
-
-      - name: Setup vcpkg(Windows)
-        if: runner.os == 'Windows'
-        uses: lukka/run-vcpkg@v11
-        with:
-          useGitHub: true
-          commitish: abcdef0123456789abcdef0123456789abcdef01
-
-      - name: Build with CMake(Windows)
-        if: runner.os == 'Windows'
-        uses: lukka/run-cmake@v10
-
-      # - name: 
-
-      - name: Configure CMake
-        if: runner.os == 'Windows'
-        run: make -B build -DCMAKE_BUILD_TYPE=Release ${{ runner.os == 'Windows' && '-DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake' || '' }}
-
       - name: Build
         run: cmake --build build --config Release --parallel
 

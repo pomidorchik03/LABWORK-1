@@ -25,7 +25,7 @@ jobs:
   build-linux:
     needs: release
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions: write
     steps:
       - uses: actions/checkout@v3
         with:
@@ -57,6 +57,7 @@ jobs:
       - run: git clone https://github.com/microsoft/vcpkg.git
       - run: .\vcpkg\bootstrap-vcpkg.bat
       - run: .\vcpkg\vcpkg install boost-test:x64-windows
+      - run: cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }}
       - run: cmake --build .
       - run: cmake --build . --target test

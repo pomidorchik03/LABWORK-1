@@ -31,7 +31,8 @@ jobs:
         if: runner.os == 'Windows'
         uses: lukka/run-vcpkg@v11
         with:
-          vcpkgGitCommitId: '2024.07.12'
+          useGitHub: true
+          commitish: abcdef0123456789abcdef0123456789abcdef01
 
       - name: Build with CMake(Windows)
         if: runner.os == 'Windows'

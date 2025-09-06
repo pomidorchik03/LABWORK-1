@@ -4,9 +4,9 @@ on:
   push
 
 jobs:
-  permissions: write-all
   release:
     runs-on: ubuntu-latest  
+    permissions: write-all
     steps:
       - uses: actions/checkout@v5
         with:

@@ -7,7 +7,7 @@ project(helloworld VERSION ${PROJECT_VESRION})
 
 cmake_policy(SET CMP0167 NEW)
 
-find_package(Boost REQUIRED COMPONENTS unit_test_framework)
+find_package(boost CONFIG REQUIRED COMPONENTS unit_test_framework)
 
 configure_file(version.h.in version.h)
 

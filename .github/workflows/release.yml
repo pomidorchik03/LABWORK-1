@@ -59,6 +59,7 @@ jobs:
       - run: git clone https://github.com/microsoft/vcpkg.git
       - run: dir
       - run: cd vcpkg
+      - run: dir
       - run: .\bootstrap-vcpkg.bat
       - run: .\vcpkg install boost-test:x64-windows
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }}

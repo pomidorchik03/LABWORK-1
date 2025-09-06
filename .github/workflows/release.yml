@@ -4,9 +4,9 @@ on:
   push
 
 jobs:
+  permissions: write-all
   release:
-    runs-on: ubuntu-latest
-    permissions: write-all
+    runs-on: ubuntu-latest  
     steps:
       - uses: actions/checkout@v5
         with:
@@ -25,9 +25,10 @@ jobs:
   build-linux:
     needs: release
     runs-on: ubuntu-latest
-    permissions: write-all
     steps:
       - uses: actions/checkout@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           submodules: true
       - run: sudo apt-get update && sudo apt-get install libboost-test-dev -y
@@ -49,7 +50,6 @@ jobs:
   build-windows:
     needs: release
     runs-on: windows-latest
-    permissions: write-all
     steps:
       - uses: actions/checkout@v3
         with: 
@@ -58,6 +58,7 @@ jobs:
           git clone https://github.com/microsoft/vcpkg.git
           cd vcpkg
           .\bootstrap-vcpkg.bat
+          .\vcpkg install boost-test:x64-windows
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }}
       - run: cmake --build .
       - run: cmake --build . --target test

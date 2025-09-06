@@ -4,25 +4,6 @@ on:
   push
 
 jobs:
-  release:
-    runs-on: ubuntu-latest
-    permissions: write-all
-    steps:
-      - uses: actions/checkout@v5
-        with:
-          submodules: true
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.run_number }}
-          release_name: Release 0.0.${{ github.run_number }}
-          draft: false
-          prerelease: false
-
-
   build-linux:
     runs-on: ubuntu-latest
     permissions: write-all
@@ -68,3 +49,22 @@ jobs:
           asset_path: ./helloworld-0.0.${{ github.run_number }}-Windows.exe
           asset_name: helloworld-0.0.${{ github.run_number }}-Windows.exe
           asset_content_type: application/vnd.microsoft.portable-executable
+
+  release:
+    needs: [build-linux, build-windows]
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: true
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.run_number }}
+          release_name: Release 0.0.${{ github.run_number }}
+          draft: false
+          prerelease: false

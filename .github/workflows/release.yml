@@ -6,6 +6,8 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest  
+    outputs: 
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
     permissions: write-all
     steps:
       - uses: actions/checkout@v5
@@ -42,7 +44,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          upload_url: ${{ needs.release.outputs.upload_url }}
           asset_path: ./helloworld-0.0.${{ github.run_number }}-Linux.deb
           asset_name: helloworld-0.0.${{ github.run_number }}-Linux.deb
           asset_content_type: application/vnd.debian.binary-package
@@ -55,6 +57,7 @@ jobs:
         with: 
           submodules: true
       - run: git clone https://github.com/microsoft/vcpkg.git
+      - run: dir
       - run: cd vcpkg
       - run: .\bootstrap-vcpkg.bat
       - run: .\vcpkg install boost-test:x64-windows

@@ -5,32 +5,29 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-latest  
-    outputs: 
-      upload_url: ${{ steps.create_release.outputs.upload_url }}
-    permissions: write-all
-    steps:
-      - uses: actions/checkout@v5
-        with:
-          submodules: true
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.run_number }}
-          release_name: Release 1.0.${{ github.run_number }}
-          draft: false
-          prerelease: false
+  runs-on: ubuntu-latest
+  permissions: write-all
+  steps:
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.run_number }}
+        release_name: Release 1.0.${{ github.run_number }}
+        draft: false
+        prerelease: false
 
   build-linux:
     needs: release
     runs-on: ubuntu-latest
+    permissions: write-all
     steps:
       - uses: actions/checkout@v3
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           submodules: true
       - run: sudo apt-get update && sudo apt-get install libboost-test-dev -y
@@ -44,7 +41,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.release.outputs.upload_url }}
+          upload_url: ${{ steps.upload-release-asset.outputs.upload_url }}
           asset_path: ./helloworld-0.0.${{ github.run_number }}-Linux.deb
           asset_name: helloworld-0.0.${{ github.run_number }}-Linux.deb
           asset_content_type: application/vnd.debian.binary-package
@@ -52,12 +49,12 @@ jobs:
   build-windows:
     needs: release
     runs-on: windows-latest
+    permissions: write-all
     steps:
       - uses: actions/checkout@v3
         with: 
           submodules: true
       - run: git clone https://github.com/microsoft/vcpkg.git
-      - run: dir
       - run: .\vcpkg\bootstrap-vcpkg.bat
       - run: .\vcpkg\vcpkg install boost-test:x64-windows
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }}
@@ -70,7 +67,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./helloworld-0.0.${{ github.run_number }}-Windows.exe
           asset_name: helloworld-0.0.${{ github.run_number }}-Windows.exe
           asset_content_type: application/vnd.microsoft.portable-executable

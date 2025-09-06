@@ -38,7 +38,7 @@ jobs:
       # - name: 
 
       - name: Configure CMake
-        if: runner.os == "Windows"
+        if: runner.os == 'Windows'
         run: make -B build -DCMAKE_BUILD_TYPE=Release ${{ runner.os == 'Windows' && '-DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake' || '' }}
 
       - name: Build

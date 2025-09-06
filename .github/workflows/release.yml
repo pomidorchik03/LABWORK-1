@@ -49,7 +49,7 @@ jobs:
     permissions: write-all
     steps:
       - uses: actions/checkout@v3
-      - with: 
+        with: 
           submodules: true
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }}
       - run: cmake --build .

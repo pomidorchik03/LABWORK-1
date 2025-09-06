@@ -21,7 +21,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install libboost-test-dev -y
 
       - name: Install lib(Windows)
-        if: runner.os == "Windows"
+        if: runner.os == 'Windows'
         uses: lukka/run-vcpkg@v11
         with:
           vcpkgDirectory: '${{ github.workspace }}/vcpkg'

@@ -20,8 +20,10 @@ jobs:
       - name: test
         run: dir 
 
+      - name:
+
       - name: Build
-        run: cmake --build build --config Release --parallel
+        run: cmake --build . --config Release --parallel
 
       - name: test
         run: dir 

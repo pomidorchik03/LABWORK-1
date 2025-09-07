@@ -17,6 +17,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
+      - name: test
+        run: dir 
+
       - name: Build
         run: cmake --build build --config Release --parallel
 

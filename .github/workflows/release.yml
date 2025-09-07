@@ -41,7 +41,7 @@ jobs:
         with:
           path: artifact
 
-      - run: ls tree
+      - run: ls -R
 
       - name: Release
         uses: softprops/action-gh-release@v2

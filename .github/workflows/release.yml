@@ -21,7 +21,7 @@ jobs:
         run: dir 
 
       - name: Build
-        run: cmake --build . --config Release --parallel
+        run: cmake --build . 
 
       - name: test
         run: dir 

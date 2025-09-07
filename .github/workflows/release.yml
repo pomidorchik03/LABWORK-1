@@ -21,13 +21,13 @@ jobs:
         run: cmake --build build --config Release --parallel
 
       - name: test
-        run: dir
+        run: dir 
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: myapp-${{ runner.os }}
-          path: build/myapp && build/Release/myapp.exe
+          name: lab-${{ runner.os }}
+          path: build/lab && build/Release/lab.exe
       
   release:
     needs: build
@@ -41,7 +41,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          files: artifacts/myapp-Linux/myapp && artifacts/myapp-Windows/myapp.exe
+          files: artifacts/lab-Linux/lab && artifacts/lab-Windows/lab.exe
           tag_name: 1.0.${{ github.run_number }}
           body: "Release 1.0.${{ github.run_number }}"
         env:

@@ -29,6 +29,8 @@ jobs:
         with:
           name: lab-${{ runner.os }}
           path: helloworld_cli.exe
+
+      - name: Upload artifact
         if: runner.os == 'Linux'
         uses: action/upload-artifact@v4
         with:

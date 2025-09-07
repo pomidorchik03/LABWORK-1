@@ -24,13 +24,13 @@ jobs:
         run: cmake --build . 
 
       - name: test
-        run: dir 
+        run: dir helloworld_cli
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: lab-${{ runner.os }}
-          path: build/lab && build/Release/lab.exe
+          path: build/ && build/Release/lab.exe
       
   release:
     needs: build

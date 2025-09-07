@@ -30,7 +30,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: lab-${{ runner.os }}
-          path: helloworld_cli && helloworld_cli.exe
+          path: |
+            helloworld_cli
+            helloworld_cli.exe
       
   release:
     needs: build

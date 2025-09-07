@@ -25,11 +25,11 @@ jobs:
 
       - name: Run check
         if: runner.os == 'Windows'
-        run:  Debug/helloworld_cli.exe
+        run:  ./Debug/helloworld_cli.exe
 
       - name: Run check
         if: runner.os == 'Linux'
-        run: helloworld_cli
+        run: ./helloworld_cli
 
       - name: Upload artifact
         if: runner.os == 'Windows'

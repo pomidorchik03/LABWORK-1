@@ -41,18 +41,9 @@ jobs:
         run: dir
 
       - name: Upload artifact
-        if: runner.os == 'Windows'
         uses: actions/upload-artifact@v4
         with:
-          name: lab-${{ runner.os }}
-          path: LABWORK-1/helloworld-0.0.9-win64.zip
-
-      - name: Upload artifact
-        if: runner.os == 'Linux'
-        uses: actions/upload-artifact@v4
-        with:
-          name: lab-${{ runner.os }}
-          path: LABWORK-1/helloworld-0.0.9-Linux.deb
+          path: LABWORK-1/helloworld-*.zip
             
       
   release:

@@ -27,7 +27,7 @@ jobs:
         run: cmake --build . 
 
       - name: Pack
-        run: cpack -C Release --config CPackConfig.cmake
+        run: cpack --config CPackConfig.cmake
 
       - name: Run check
         if: runner.os == 'Windows'

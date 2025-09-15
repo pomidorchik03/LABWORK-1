@@ -27,7 +27,12 @@ jobs:
         run: cmake --build . 
 
       - name: Pack
-        run: cpack -C Release --config build/CPackConfig.cmake
+        if: runner.os == 'Windows'
+        run: cpack -C Release --config ./Debug/CPackConfig.cmake
+
+      - name: Pack
+        if: runner.os == 'Linux'
+        run: cpack -C Release --config CPackConfig.cmake
 
       - name: Run check
         if: runner.os == 'Windows'

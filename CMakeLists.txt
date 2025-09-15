@@ -36,11 +36,13 @@ else ()
     )
 endif()
 
-
-
 install(TARGETS helloworld_cli RUNTIME DESTINATION bin)
 
-set(CPACK_GENERATOR "ZIP;DEB")
+if(UNIX)
+    set(CPACK_GENERATOR "DEB")
+else ()
+    set(CPACK_GENERATOR "ZIP")
+endif()
 
 set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")

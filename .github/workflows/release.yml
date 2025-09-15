@@ -21,7 +21,7 @@ jobs:
         run: cmake . -DPATCH_VERSION=${{ github.run_number }}
 
       - name: Build
-        run: cmake --build . 
+        run: cmake --build . && cpack -C Release --config build/CPackConfig.cmake
 
       - name: Run check
         if: runner.os == 'Windows'

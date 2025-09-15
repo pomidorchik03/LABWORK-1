@@ -31,7 +31,7 @@ jobs:
 
       - name: Run check
         if: runner.os == 'Windows'
-        run:  ./Debug/helloworld_cli.exe
+        run:  ./Release/helloworld_cli.exe
 
       - name: Run check
         if: runner.os == 'Linux'
@@ -42,14 +42,14 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: lab-${{ runner.os }}
-          path: Debug/helloworld_cli.exe
+          path: helloworld-0.0.9-win64.zip
 
       - name: Upload artifact
         if: runner.os == 'Linux'
         uses: actions/upload-artifact@v4
         with:
           name: lab-${{ runner.os }}
-          path: helloworld_cli
+          path: helloworld-0.0.9-Linux.deb
             
       
   release:
@@ -68,8 +68,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            artifact/lab-Linux/helloworld_cli
-            artifact/lab-Windows/helloworld_cli.exe
+            artifact/lab-Linux/helloworld-0.0.9-Linux.deb
+            artifact/lab-Windows/helloworld-0.0.9-win64.zip
           tag_name: 1.0.${{ github.run_number }}
           body: "Release 1.0.${{ github.run_number }}"
         env:

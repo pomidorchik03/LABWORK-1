@@ -37,6 +37,9 @@ jobs:
         if: runner.os == 'Linux'
         run: ./helloworld_cli
 
+      - name: check
+        run: dir
+
       - name: Upload artifact
         if: runner.os == 'Windows'
         uses: actions/upload-artifact@v4
